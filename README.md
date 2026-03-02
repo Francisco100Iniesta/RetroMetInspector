@@ -66,6 +66,8 @@ For each insertion locus, the tool:
 
 This allows detection of subtle methylation shifts (e.g., MINmetDiff).
 <img width="1768" height="178" alt="image" src="https://github.com/user-attachments/assets/561f34cf-b933-4d12-9ca3-975aea589e15" />
+<img width="1760" height="121" alt="image" src="https://github.com/user-attachments/assets/8ffe50cf-05e9-4ce6-8f44-ca0e11af440d" />
+
 
 ---
 
