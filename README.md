@@ -52,6 +52,7 @@ RetroMetInspector takes these reported insertion sites as input and performs ext
 - Determines the insertion-bearing allele
 - Refines genotyping accuracy at heterozygous loci
 - Improves allele-specific interpretation
+<img width="644" height="506" alt="image" src="https://github.com/user-attachments/assets/00b58ac8-e326-4d65-8499-17c5664b6b16" />
 
 ---
 
