@@ -129,7 +129,6 @@ RetroMetInspector enables questions such as:
 RetroMetInspector runs **downstream of RetroInspector** and requires haplotype-resolved long-read data with methylation information.
 
 **Mandatory inputs**
-- **RetroInspector TE insertion calls** (used as anchor coordinates; RetroMetInspector does *not* perform de novo TE discovery)
 - **Reference genome** (`.fa/.fasta`) and **annotation** (`.gtf/.gff`)
 - **Aligned long-read BAM(s)** for each sample
 
