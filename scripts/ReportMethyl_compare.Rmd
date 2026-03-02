@@ -1,0 +1,173 @@
+---
+title: "RetroMetInspector Comparative Report 🔎 vs 🔎"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(dplyr)
+library(readr)
+library(DT)
+library(tidyr)
+
+samples<-snakemake@params[["samples"]]
+met_window = snakemake@params[["met_window"]]
+min_met_diff = snakemake@params[["min_met_diff"]]
+min_reads = snakemake@params[["min_reads"]]
+soi=snakemake@params$soi
+
+#Cargamos los RDS finales
+S1_ALL = readRDS(snakemake@input[["S1_ALL"]])
+S2_ALL = readRDS(snakemake@input[["S2_ALL"]])
+S1_filtered=readRDS(snakemake@input[["S1_filtered"]])
+S2_filtered=readRDS(snakemake@input[["S2_filtered"]])
+sample1=soi[1]
+sample2=soi[2]
+```
+
+
+
+# Unshared Transposable Elements (TEs) detected between samples:`r sample1` and:`r sample2`
+
+
+⚠️ Notes: 
+
+- "Differential insertions between samples should be approached with caution. Variant callers such as **Sniffles2** or **cuteSV** can occasionally fail to detect a variant in a sample where it is actually present, thereby generating **false positives** in differential analysis."
+- We recommend to manually check each TE using the igv_screenshot script aviable in igv folder.
+
+
+
+
+- ** Columns with a blue background indicate  TE presence  🔵 **
+- ** Columns with a red background indicate TE absence 🔴 **
+
+## TE insertions without filtering parameters
+
+### All TE insertions present in sample `r sample1`(S1) but not in sample `r sample2`(S2) with a `r met_window`bp  (left-right) meth window analysis.
+
+
+
+
+<details>
+  <summary>Haz clic aquí para ver la tabla de todas las inserciones</summary>
+
+```{r, echo=FALSE}
+S1_ALL$sample=NULL
+datatable(S1_ALL) %>%
+  formatStyle(
+    0,
+    target = "row",
+    textAlign = 'center',
+    fontFamily = 'Arial',
+    fontSize = '12px',
+    backgroundColor = "#f5f5f5"
+  ) %>%
+  formatStyle(6:7, backgroundColor = "#e8f3ec", fontWeight = 'bold') %>%
+  formatStyle(8:12, backgroundColor = "#e7f1fb") %>%
+  formatStyle(13:17, backgroundColor = "#dbe9f6") %>%
+  formatStyle(18:23, backgroundColor = "#F08080") %>%
+  formatStyle(23:27, backgroundColor = "#FF6A6A") %>%
+  formatStyle(8,  borderLeft = '2px solid white') %>%
+  formatStyle(13, borderLeft = '2px solid white') %>%
+  formatStyle(6,  borderLeft = '2px solid white') %>%
+  formatStyle(1, fontWeight = 'bold')
+```
+
+
+
+### All TE insertions present in sample `r sample2`(S2) but not in sample `r sample1`(S1) with a `r met_window`bp  (left-right) meth window analysis.
+
+
+<details>
+  <summary>Haz clic aquí para ver la tabla de todas las inserciones</summary>
+
+```{r, echo=FALSE}
+S2_ALL$sample=NULL
+datatable(S2_ALL) %>%
+  formatStyle(
+    0,
+    target = "row",
+    textAlign = 'center',
+    fontFamily = 'Arial',
+    fontSize = '12px',
+    backgroundColor = "#f5f5f5"
+  ) %>%
+  formatStyle(6:7, backgroundColor = "#e8f3ec", fontWeight = 'bold') %>%
+  formatStyle(8:12, backgroundColor = "#e7f1fb") %>%
+  formatStyle(13:17, backgroundColor = "#dbe9f6") %>%
+  formatStyle(18:22, backgroundColor = "#F08080") %>%
+  formatStyle(22:27, backgroundColor = "#FF6A6A") %>%
+  formatStyle(8,  borderLeft = '2px solid white') %>%
+  formatStyle(13, borderLeft = '2px solid white') %>%
+  formatStyle(6,  borderLeft = '2px solid white') %>%
+  formatStyle(1, fontWeight = 'bold')
+```
+
+
+## TE insertions with filtering parameters
+
+### TE insertions present in sample `r sample1`(S1) but not in sample `r sample2`(S2) according the run parameters: r met_window`bp  (left-right) meth window analysis and `r min_met_diff * 100`% diff methylation rate per each Haplotype.
+
+
+
+<details>
+  <summary>Haz clic aquí para ver la tabla de todas las inserciones</summary>
+
+```{r, echo=FALSE}
+S1_filtered$sample=NULL
+datatable(S1_filtered) %>%
+  formatStyle(
+    0,
+    target = "row",
+    textAlign = 'center',
+    fontFamily = 'Arial',
+    fontSize = '12px',
+    backgroundColor = "#f5f5f5"
+  ) %>%
+  formatStyle(6:7, backgroundColor = "#e8f3ec", fontWeight = 'bold') %>%
+  formatStyle(8:12, backgroundColor = "#e7f1fb") %>%
+  formatStyle(13:17, backgroundColor = "#dbe9f6") %>%
+  formatStyle(18:22, backgroundColor = "#F08080") %>%
+  formatStyle(22:27, backgroundColor = "#FF6A6A") %>%
+  formatStyle(8,  borderLeft = '2px solid white') %>%
+  formatStyle(13, borderLeft = '2px solid white') %>%
+  formatStyle(6,  borderLeft = '2px solid white') %>%
+  formatStyle(1, fontWeight = 'bold')
+```
+
+### TE insertions present in sample `r sample2`(S2) but not in sample `r sample1`(S1) according the run parameters: r met_window`bp  (left-right) meth window analysis and `r min_met_diff * 100`% diff methylation rate per each Haplotype.
+
+
+
+<details>
+  <summary>Haz clic aquí para ver la tabla de todas las inserciones</summary>
+
+```{r, echo=FALSE}
+S2_filtered$sample=NULL
+datatable(S2_filtered) %>%
+  formatStyle(
+    0,
+    target = "row",
+    textAlign = 'center',
+    fontFamily = 'Arial',
+    fontSize = '12px',
+    backgroundColor = "#f5f5f5"
+  ) %>%
+  formatStyle(6:7, backgroundColor = "#e8f3ec", fontWeight = 'bold') %>%
+  formatStyle(8:12, backgroundColor = "#e7f1fb") %>%
+  formatStyle(13:17, backgroundColor = "#dbe9f6") %>%
+  formatStyle(18:22, backgroundColor = "#F08080") %>%
+  formatStyle(22:27, backgroundColor = "#FF6A6A") %>%
+  formatStyle(8,  borderLeft = '2px solid white') %>%
+  formatStyle(13, borderLeft = '2px solid white') %>%
+  formatStyle(6,  borderLeft = '2px solid white') %>%
+  formatStyle(1, fontWeight = 'bold')
+```

@@ -1,0 +1,7 @@
+name: igv_Retromet
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - igv
