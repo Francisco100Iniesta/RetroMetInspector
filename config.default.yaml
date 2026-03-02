@@ -1,0 +1,34 @@
+referenceGenome: "data/hg38.fa"
+humanGTF: "data/yourGTF"
+species: "homo_sapiens"
+bam_directory: "alns"
+outputPath: "." # Dont't include the trailing "/"
+allPrefix: "preference_prefix_for generated files"
+#Params for retromet analysis
+#Size window por left and right analysis of methylation
+MetWindows: 1000  
+#Min methylation differences between Haplotypes 
+MINmetDiff: 0.25
+#Size window por left and right analysis of methylation
+MinreadsSupport: 5
+# Parameters
+threads: 32
+mode: "full"
+minimumReadSupport: 1
+insertionDistanceLimitIntraPatient: 200
+insertionDistanceLimitInterPatient: 200
+survivorInsertionDistanceLimitIntraPatient: 200
+survivorInsertionDistanceLimitInterPatient: 500
+enrichmentSignificanceThreshold: 0.05
+callers: ["cuteSV", "sniffles2"]
+datasets: []
+
+# Keep certain files
+keepRds: True
+
+samples: {alignments_INV-2024-0005_ID1-21D-2, alignments_INV-2025-RETROS_1725, 2023-06-02_Genoma_SVAF1_sorted}
+
+comparisons:
+  [
+   ['alignments_INV-2024-0005_ID1-21D-2', '2023-06-02_Genoma_SVAF1_sorted'],
+  ]
