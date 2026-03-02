@@ -1,0 +1,27 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - methylartist
+  - seqkit
+  - samtools
+  - python
+  - bcftools=1.15.1
+  - bedtools=2.30.0
+  - biopython=1.80
+  - pip=21.3.1
+  - gawk=5.1.0
+  - gettext=0.21.1
+  - numpy
+  - pandas
+  - pysam
+  - r-base
+  - r-dplyr
+  - r-readr
+  - r-dt
+  - r-tidyr
+  - r-data.table
+  - minimap2
+  - igv
+  - r-glue
