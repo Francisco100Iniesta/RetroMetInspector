@@ -163,8 +163,8 @@ comparisons:
   [
     ['sampleA', 'sampleB']
   ]
----
-## Launch pipeline
+
+### Launch pipeline
 
 ```{yaml}
 source ~/.bashrc
