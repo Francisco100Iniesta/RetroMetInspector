@@ -124,42 +124,29 @@ RetroMetInspector enables questions such as:
 - Does insertion presence correlate with allele-specific epigenetic shifts?
 
 ---
-## ⚙️ Configuration Example
+## Input requirements
 
-referenceGenome: "data/hg38.fa"
-humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
-species: "homo_sapiens"
+RetroMetInspector runs **downstream of RetroInspector** and requires haplotype-resolved long-read data with methylation information.
 
-bam_directory: "alns"
-outputPath: "."
-allPrefix: "project_prefix"
+**Mandatory inputs**
+- **RetroInspector TE insertion calls** (used as anchor coordinates; RetroMetInspector does *not* perform de novo TE discovery)
+- **Reference genome** (`.fa/.fasta`) and **annotation** (`.gtf/.gff`)
+- **Aligned long-read BAM(s)** for each sample
 
-# --- RetroMetInspector methylation parameters ---
-MetWindows: 1000
-MINmetDiff: 0.25
-MinreadsSupport: 5
+**BAM must contain**
+- **Methylation tags**: `MM` and `ML` (typically produced by ONT **Dorado** basecaller)
+- **Phasing / haplotype tag**: `HP` with reads assigned to **HP1 / HP2** (e.g., generated with **WhatsHap**)
 
-# --- Workflow parameters ---
-threads: 32
-mode: "full"
+Without `MM/ML` the workflow cannot quantify methylation, and without `HP` it cannot perform allele-specific (haplotype-aware) analysis.
 
-minimumReadSupport: 1
-insertionDistanceLimitIntraPatient: 200
-insertionDistanceLimitInterPatient: 200
-survivorInsertionDistanceLimitIntraPatient: 200
-survivorInsertionDistanceLimitInterPatient: 500
-enrichmentSignificanceThreshold: 0.05
-callers: ["cuteSV", "sniffles2"]
-datasets: []
+**Sample naming (config)**
+- The `samples` list must match your BAM identifiers (no spaces recommended).
+- In **compare mode**, each entry in `comparisons` must contain **exactly two** sample names.
 
-keepRds: True
-
-samples:
-  { sampleA, sampleB, sampleC }
+```yaml
+samples: { sampleA, sampleB, sampleC }
 
 comparisons:
   [
     ['sampleA', 'sampleB']
   ]
-
-
