@@ -149,3 +149,48 @@ comparisons:
   [
     ['sampleA', 'sampleB']
   ]
+
+
+## Launch
+
+RetroMetInspector is executed using **Snakemake** with Conda/Mamba environments.
+
+It is recommended to run the workflow on an HPC system.
+
+### Environment activation
+
+```{bash}
+source ~/.bashrc
+mamba activate snakemake
+snakemake --use-conda \
+  --conda-frontend mamba \
+  -p \
+  --configfile config.default.yaml \
+  -c 46
+
+
+
+
+referenceGenome: "data/hg38.fa"
+humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
+species: "homo_sapiens"
+
+bam_directory: "alns"
+outputPath: "."
+allPrefix: "project_prefix"
+
+# --- Methylation analysis parameters ---
+MetWindows: 1000
+MINmetDiff: 0.25
+MinreadsSupport: 5
+
+threads: 32
+mode: "full"
+
+samples:
+  { sampleA, sampleB }
+
+comparisons:
+  [
+    ['sampleA', 'sampleB']
+  ]
