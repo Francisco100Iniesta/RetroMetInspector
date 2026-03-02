@@ -79,6 +79,9 @@ The workflow automatically:
 - Generates haplotype-separated plots
 - Outputs publication-ready figures
 - Integrates plots into interactive HTML reports
+<img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
+<img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
+<img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
 
 ---
 
