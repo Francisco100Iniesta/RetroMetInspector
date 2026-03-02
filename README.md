@@ -21,49 +21,103 @@ This enables functional interpretation of heterozygous insertions.
 
 ---
 
+## 🧬 Functional Extension Overview
+
+RetroMetInspector is a downstream analytical framework built on top of RetroInspector TE calls.
+
+Rather than performing de novo TE detection, RetroMetInspector:
+
+1. Processes TE insertions previously identified by RetroInspector
+2. Performs haplotype-aware characterization of insertion loci
+3. Computes allele-specific methylation profiles
+4. Generates multi-layer methylation visualizations
+5. Enables inter-sample comparison of insertion-associated methylation states
+
+---
+
 ## 🧱 Relationship to RetroInspector
 
-RetroMetInspector builds upon the TE detection framework implemented in RetroInspector:
-
+TE insertion discovery is performed using the RetroInspector workflow:
 https://github.com/javiercguard/retroinspector
 
-RetroInspector performs:
-
-- Detection of TE insertions and deletions
-- Structural variant annotation
-- Configurable filtering by read support
-- Comparative analysis between samples
-
-RetroMetInspector extends this framework by adding:
-
-- Haplotype-resolved insertion characterization  
-- Allele-specific methylation quantification  
-- Detection of methylation differences between haplotypes  
-- Customizable methylation windows around insertion sites  
-- Advanced visualization of methylation profiles  
-- Functional multi-omic interpretation  
-
-TE detection itself is performed using the RetroInspector-based workflow, while RetroMetInspector introduces additional epigenetic and haplotype-aware modules.
+RetroMetInspector takes these reported insertion sites as input and performs extended epigenomic characterization.
 
 ---
 
-## 🧬 Key Features
+## 🔍 Core Functionalities
 
-✔ TE insertion detection (via RetroInspector framework)  
-✔ Haplotype assignment of insertions  
-✔ Allele-specific methylation quantification  
-✔ Differential methylation analysis (Haplotype 1 vs Haplotype 2)  
-✔ Customizable genomic windows for methylation analysis  
-✔ Configurable filtering thresholds  
-✔ Automated HTML report generation  
-✔ Publication-ready methylation plots  
+### 1️⃣ Haplotype-aware insertion genotyping
 
-This enables biological questions such as:
-
-> Can a heterozygous TE insertion alter the methylation state of the surrounding genomic region specifically in the insertion-bearing allele?
+- Assigns insertions to specific haplotypes
+- Determines the insertion-bearing allele
+- Refines genotyping accuracy at heterozygous loci
+- Improves allele-specific interpretation
 
 ---
 
+### 2️⃣ Customizable methylation window analysis
+
+For each insertion locus, the tool:
+
+- Extracts user-defined genomic windows surrounding the insertion
+- Computes methylation levels per haplotype
+- Detects allele-specific methylation differences
+- Applies configurable filtering thresholds
+
+This allows detection of subtle methylation shifts (e.g., MINmetDiff).
+
+---
+
+### 3️⃣ Visualization via Methylartist
+
+Methylation plots are generated using:
+https://github.com/adamewing/methylartist
+
+The workflow automatically:
+
+- Produces methylation profiles across selected windows
+- Generates haplotype-separated plots
+- Outputs publication-ready figures
+- Integrates plots into interactive HTML reports
+
+---
+
+### 4️⃣ Custom contig reconstruction of insertion loci
+
+To directly assess methylation within the inserted element:
+
+- Custom contigs are constructed by incorporating the insertion sequence into the reference locus
+- Reads are re-evaluated against these reconstructed regions
+- Methylation within the inserted TE itself is computed and plotted
+
+This enables direct epigenetic profiling of the insertion sequence.
+
+---
+
+### 5️⃣ Cross-sample comparison mode ("compare" mode)
+
+RetroMetInspector includes a comparative module that:
+
+- Identifies shared or unique insertions between samples
+- Compares methylation states between:
+    - Samples carrying the insertion
+    - Samples lacking the insertion
+- Reports allele-specific methylation differences across conditions
+
+This enables functional interpretation of insertion-associated epigenetic variation across individuals or experimental conditions.
+
+---
+
+## 🧠 Biological Interpretation Enabled
+
+RetroMetInspector enables questions such as:
+
+- Does a heterozygous TE insertion alter local methylation only in the insertion-bearing allele?
+- Is the inserted element itself methylated?
+- Are methylation differences preserved across individuals?
+- Does insertion presence correlate with allele-specific epigenetic shifts?
+
+---
 ## ⚙️ Configuration Example
 
 ```yaml
