@@ -126,15 +126,40 @@ RetroMetInspector enables questions such as:
 ---
 ## ⚙️ Configuration Example
 
-```yaml
 referenceGenome: "data/hg38.fa"
-humanGTF: "data/yourGTF"
+humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
 species: "homo_sapiens"
+
 bam_directory: "alns"
 outputPath: "."
 allPrefix: "project_prefix"
 
-# Methylation analysis parameters
+# --- RetroMetInspector methylation parameters ---
 MetWindows: 1000
 MINmetDiff: 0.25
 MinreadsSupport: 5
+
+# --- Workflow parameters ---
+threads: 32
+mode: "full"
+
+minimumReadSupport: 1
+insertionDistanceLimitIntraPatient: 200
+insertionDistanceLimitInterPatient: 200
+survivorInsertionDistanceLimitIntraPatient: 200
+survivorInsertionDistanceLimitInterPatient: 500
+enrichmentSignificanceThreshold: 0.05
+callers: ["cuteSV", "sniffles2"]
+datasets: []
+
+keepRds: True
+
+samples:
+  { sampleA, sampleB, sampleC }
+
+comparisons:
+  [
+    ['sampleA', 'sampleB']
+  ]
+
+
