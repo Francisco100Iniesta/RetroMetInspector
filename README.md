@@ -163,7 +163,7 @@ comparisons:
   [
     ['sampleA', 'sampleB']
   ]
-
+```
 ### Launch pipeline
 
 ```{yaml}
@@ -174,3 +174,31 @@ snakemake --use-conda \
   -p \
   --configfile config.default.yaml \
   -c 46
+```
+
+### Config File parameters
+```{yaml}
+referenceGenome: "data/hg38.fa"
+humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
+species: "homo_sapiens"
+
+bam_directory: "alns"
+outputPath: "."
+allPrefix: "project_prefix"
+
+# --- Methylation analysis parameters ---
+MetWindows: 1000
+MINmetDiff: 0.25
+MinreadsSupport: 5
+
+threads: 32
+mode: "full"
+
+samples:
+  { sampleA, sampleB }
+
+comparisons:
+  [
+    ['sampleA', 'sampleB']
+  ]
+```
