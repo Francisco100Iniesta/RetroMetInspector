@@ -164,6 +164,11 @@ comparisons:
     ['sampleA', 'sampleB']
   ]
 ```
+
+### Clone repository
+```{yaml}
+[git clone https://github.com/javiercguard/retroinspector](https://github.com/Francisco100Iniesta/RetroMetInspector)
+```
 ### Launch pipeline
 
 ```{yaml}
