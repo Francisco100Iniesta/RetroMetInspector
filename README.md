@@ -112,6 +112,8 @@ RetroMetInspector includes a comparative module that:
 This enables functional interpretation of insertion-associated epigenetic variation across individuals or experimental conditions.
 ![Sin título-1](https://github.com/user-attachments/assets/0a38dafd-3caf-430e-bec9-572701e09050)
 
+
+**IGV coordinate file generation**: After pipeline completion, the workflow generates a coordinate file containing all detected insertion loci. This file enables direct visualization in IGV and facilitates systematic screenshot capture of insertion events. Detailed instructions for IGV-based inspection and screenshot generation are provided in a later section.
 ---
 
 ## 🧠 Biological Interpretation Enabled
@@ -261,3 +263,15 @@ comparisons:
 - **samples**: List of sample identifiers (must match BAM file names).
 
 - **comparisons**: Pairwise sample comparisons used in compare mode (exactly two samples per comparison).
+  
+## IGV Screenshot generation
+A script is available in the IGV DIRECTORY to generate screenshots of all haplotyped transposition events in a comparative way.
+
+The script can be runned after the pipeline run.
+```{yaml}
+./screenshot_igv.sh {bat file generated in the IGV directory} {File path to BAM 1} {File path to BAM 2} {Output path to screenshot directory (blank by default)}
+```
+Screenshot output: Generates a directory containing one image per insertion event, where each screenshot file is named using the corresponding insertion ID.
+
+<img width="443" height="345" alt="image" src="https://github.com/user-attachments/assets/2c7c12e0-ff63-48be-b609-e988c8c6fde0" />
+
