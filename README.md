@@ -108,12 +108,12 @@ RetroMetInspector includes a comparative module that:
     - Samples carrying the insertion
     - Samples lacking the insertion
 - Reports allele-specific methylation differences across conditions
-
+- **IGV coordinate file generation**: After pipeline completion, the workflow generates a coordinate file containing all detected insertion loci. This file enables direct visualization in IGV and facilitates systematic screenshot capture of insertion events. Detailed instructions for IGV-based inspection and screenshot generation are provided in a later section.
 This enables functional interpretation of insertion-associated epigenetic variation across individuals or experimental conditions.
+
 ![Sin título-1](https://github.com/user-attachments/assets/0a38dafd-3caf-430e-bec9-572701e09050)
 
 
-**IGV coordinate file generation**: After pipeline completion, the workflow generates a coordinate file containing all detected insertion loci. This file enables direct visualization in IGV and facilitates systematic screenshot capture of insertion events. Detailed instructions for IGV-based inspection and screenshot generation are provided in a later section.
 ---
 
 ## 🧠 Biological Interpretation Enabled
