@@ -177,28 +177,124 @@ snakemake --use-conda \
 ```
 
 ### Config File parameters
-```{yaml}
-referenceGenome: "data/hg38.fa"
-humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
-species: "homo_sapiens"
+# ===============================
+# Reference and annotation files
+# ===============================
 
-bam_directory: "alns"
-outputPath: "."
-allPrefix: "project_prefix"
+referenceGenome: "data/hg38.fa"  
+# Path to the reference genome FASTA file used for alignment and coordinate system.
 
-# --- Methylation analysis parameters ---
-MetWindows: 1000
-MINmetDiff: 0.25
-MinreadsSupport: 5
+humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"  
+# Gene annotation file (GTF/GFF format) used for genomic feature annotation.
 
-threads: 32
-mode: "full"
+species: "homo_sapiens"  
+# Species identifier (used for annotation and reporting purposes).
 
-samples:
-  { sampleA, sampleB }
+
+# ===============================
+# Input / Output configuration
+# ===============================
+
+bam_directory: "alns"  
+# Directory containing phased long-read BAM files with MM/ML and HP tags.
+
+outputPath: "."  
+# Output directory for results.
+# Do NOT include a trailing slash.
+
+allPrefix: "organoid"  
+# Prefix used for naming generated result files.
+
+
+# ===============================
+# RetroMetInspector methylation parameters
+# ===============================
+
+MetWindows: 1000  
+# Size (in base pairs) of the methylation window analyzed 
+# on EACH side of the insertion breakpoint.
+# Example: 1000 = 1 kb upstream + 1 kb downstream.
+
+MINmetDiff: 0.25  
+# Minimum methylation difference (0–1 scale) between haplotypes
+# required to classify an insertion as differentially methylated.
+
+MinreadsSupport: 5  
+# Minimum number of supporting reads PER HAPLOTYPE
+# required to compute methylation and generate plots.
+
+
+# ===============================
+# General workflow parameters
+# ===============================
+
+threads: 32  
+# Number of threads available for multi-threaded rules.
+
+mode: "full"  
+# Workflow mode.
+# "full" = perform complete haplotype-aware methylation analysis.
+
+
+# ===============================
+# TE detection / structural settings
+# (inherited from RetroInspector framework)
+# ===============================
+
+minimumReadSupport: 1  
+# Minimum read support required for TE insertion calls.
+
+insertionDistanceLimitIntraPatient: 200  
+# Maximum distance (bp) to consider insertions equivalent
+# within the same sample.
+
+insertionDistanceLimitInterPatient: 200  
+# Maximum distance (bp) to consider insertions equivalent
+# between different samples.
+
+survivorInsertionDistanceLimitIntraPatient: 200  
+# Distance threshold used by SURVIVOR merging within sample.
+
+survivorInsertionDistanceLimitInterPatient: 500  
+# Distance threshold used by SURVIVOR merging between samples.
+
+enrichmentSignificanceThreshold: 0.05  
+# Statistical significance threshold for enrichment analyses.
+
+callers: ["cuteSV", "sniffles2"]  
+# Structural variant callers used for TE detection.
+
+datasets: []  
+# Optional grouping variable for multi-dataset analyses.
+
+
+# ===============================
+# Output control
+# ===============================
+
+keepRds: True  
+# If True, intermediate RDS objects are preserved.
+# Useful for debugging or downstream re-analysis.
+
+
+# ===============================
+# Sample definition
+# ===============================
+
+samples: {sampleA, sampleB, sampleC}  
+# Sample identifiers.
+# Must match BAM file names (without extension).
+# Avoid spaces in sample names.
+
+
+# ===============================
+# Compare mode (pairwise only)
+# ===============================
 
 comparisons:
   [
-    ['sampleA', 'sampleB']
+   ['sampleA', 'sampleB']
   ]
-```
+# Each comparison entry must contain EXACTLY two samples.
+# Used in compare mode to assess insertion-associated
+# methylation differences between samples.
