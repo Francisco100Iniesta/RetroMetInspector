@@ -110,6 +110,7 @@ RetroMetInspector includes a comparative module that:
 - Reports allele-specific methylation differences across conditions
 
 This enables functional interpretation of insertion-associated epigenetic variation across individuals or experimental conditions.
+![Sin título-1](https://github.com/user-attachments/assets/0a38dafd-3caf-430e-bec9-572701e09050)
 
 ---
 
