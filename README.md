@@ -65,6 +65,7 @@ For each insertion locus, the tool:
 - Applies configurable filtering thresholds
 
 This allows detection of subtle methylation shifts (e.g., MINmetDiff).
+<img width="1768" height="178" alt="image" src="https://github.com/user-attachments/assets/561f34cf-b933-4d12-9ca3-975aea589e15" />
 
 ---
 
@@ -80,9 +81,6 @@ The workflow automatically:
 - Outputs publication-ready figures
 - Integrates plots into interactive HTML reports
 <img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
-<img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
-<img width="870" height="449" alt="image" src="https://github.com/user-attachments/assets/2593d1bb-1a6b-493a-8161-1d81450c93c2" />
-
 ---
 
 ### 4️⃣ Custom contig reconstruction of insertion loci
@@ -94,6 +92,7 @@ To directly assess methylation within the inserted element:
 - Methylation within the inserted TE itself is computed and plotted
 
 This enables direct epigenetic profiling of the insertion sequence.
+<img width="1051" height="566" alt="image" src="https://github.com/user-attachments/assets/4be72c02-1c92-4842-9f8d-f86422bb46fd" />
 
 ---
 
