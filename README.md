@@ -157,7 +157,7 @@ The `samples` list must match your BAM identifiers (no spaces recommended).
 In **compare mode**, each entry in `comparisons` must contain exactly two samples.
 
 ```{yaml}
-samples: { sampleA, sampleB, sampleC }
+samples: { sampleA, sampleB, sampleC, ... }
 
 comparisons:
   [
@@ -176,125 +176,83 @@ snakemake --use-conda \
   -c 46
 ```
 
-### Config File parameters
-# ===============================
-# Reference and annotation files
-# ===============================
+### Config File example
+```{yaml}
+referenceGenome: "data/hg38.fa"
+humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"
+species: "homo_sapiens"
+bam_directory: "alns"
+outputPath: "." # Dont't include the trailing "/"
+allPrefix: "organoid"
+#params for retromet analysis
+MetWindows: 1000
+MINmetDiff: 0.25
+MinreadsSupport: 5
+# Parameters
+threads: 32
+mode: "full"
+minimumReadSupport: 1
+insertionDistanceLimitIntraPatient: 200
+insertionDistanceLimitInterPatient: 200
+survivorInsertionDistanceLimitIntraPatient: 200
+survivorInsertionDistanceLimitInterPatient: 500
+enrichmentSignificanceThreshold: 0.05
+callers: ["cuteSV", "sniffles2"]
+datasets: []
 
-referenceGenome: "data/hg38.fa"  
-# Path to the reference genome FASTA file used for alignment and coordinate system.
+# Keep certain files
+keepRds: True
 
-humanGTF: "data/gencode.v49.annotation.sorted.gtf.gz"  
-# Gene annotation file (GTF/GFF format) used for genomic feature annotation.
-
-species: "homo_sapiens"  
-# Species identifier (used for annotation and reporting purposes).
-
-
-# ===============================
-# Input / Output configuration
-# ===============================
-
-bam_directory: "alns"  
-# Directory containing phased long-read BAM files with MM/ML and HP tags.
-
-outputPath: "."  
-# Output directory for results.
-# Do NOT include a trailing slash.
-
-allPrefix: "organoid"  
-# Prefix used for naming generated result files.
-
-
-# ===============================
-# RetroMetInspector methylation parameters
-# ===============================
-
-MetWindows: 1000  
-# Size (in base pairs) of the methylation window analyzed 
-# on EACH side of the insertion breakpoint.
-# Example: 1000 = 1 kb upstream + 1 kb downstream.
-
-MINmetDiff: 0.25  
-# Minimum methylation difference (0–1 scale) between haplotypes
-# required to classify an insertion as differentially methylated.
-
-MinreadsSupport: 5  
-# Minimum number of supporting reads PER HAPLOTYPE
-# required to compute methylation and generate plots.
-
-
-# ===============================
-# General workflow parameters
-# ===============================
-
-threads: 32  
-# Number of threads available for multi-threaded rules.
-
-mode: "full"  
-# Workflow mode.
-# "full" = perform complete haplotype-aware methylation analysis.
-
-
-# ===============================
-# TE detection / structural settings
-# (inherited from RetroInspector framework)
-# ===============================
-
-minimumReadSupport: 1  
-# Minimum read support required for TE insertion calls.
-
-insertionDistanceLimitIntraPatient: 200  
-# Maximum distance (bp) to consider insertions equivalent
-# within the same sample.
-
-insertionDistanceLimitInterPatient: 200  
-# Maximum distance (bp) to consider insertions equivalent
-# between different samples.
-
-survivorInsertionDistanceLimitIntraPatient: 200  
-# Distance threshold used by SURVIVOR merging within sample.
-
-survivorInsertionDistanceLimitInterPatient: 500  
-# Distance threshold used by SURVIVOR merging between samples.
-
-enrichmentSignificanceThreshold: 0.05  
-# Statistical significance threshold for enrichment analyses.
-
-callers: ["cuteSV", "sniffles2"]  
-# Structural variant callers used for TE detection.
-
-datasets: []  
-# Optional grouping variable for multi-dataset analyses.
-
-
-# ===============================
-# Output control
-# ===============================
-
-keepRds: True  
-# If True, intermediate RDS objects are preserved.
-# Useful for debugging or downstream re-analysis.
-
-
-# ===============================
-# Sample definition
-# ===============================
-
-samples: {sampleA, sampleB, sampleC}  
-# Sample identifiers.
-# Must match BAM file names (without extension).
-# Avoid spaces in sample names.
-
-
-# ===============================
-# Compare mode (pairwise only)
-# ===============================
+samples: {SampleA, SampleB, SampleC}
 
 comparisons:
   [
-   ['sampleA', 'sampleB']
+   ['SampleA', 'SampleB'],
   ]
-# Each comparison entry must contain EXACTLY two samples.
-# Used in compare mode to assess insertion-associated
-# methylation differences between samples.
+
+```
+### Parameter description
+
+- **referenceGenome**: Path to the reference genome FASTA file used as genomic coordinate system.
+
+- **humanGTF**: Gene annotation file (GTF/GFF) used for feature annotation.
+
+- **species**: Species identifier (e.g., *homo_sapiens*).
+
+- **bam_directory**: Directory containing phased long-read BAM files with MM/ML (methylation) and HP (haplotype) tags.
+
+- **outputPath**: Directory where results will be written (do not include a trailing slash).
+
+- **allPrefix**: Prefix used for naming output files.
+
+- **MetWindows**: Size (bp) of the methylation window analyzed on each side of the insertion breakpoint.
+
+- **MINmetDiff**: Minimum methylation difference (0–1 scale) between haplotypes required to report differential methylation.
+
+- **MinreadsSupport**: Minimum number of supporting reads per haplotype required to compute and plot methylation.
+
+- **threads**: Number of computational threads available.
+
+- **mode**: Workflow execution mode (e.g., `"full"` for complete haplotype-aware methylation analysis).
+
+- **minimumReadSupport**: Minimum read support required for TE insertion calls.
+
+- **insertionDistanceLimitIntraPatient**: Distance threshold (bp) to merge insertions within the same sample.
+
+- **insertionDistanceLimitInterPatient**: Distance threshold (bp) to merge insertions between samples.
+
+- **survivorInsertionDistanceLimitIntraPatient**: SURVIVOR merging threshold within sample.
+
+- **survivorInsertionDistanceLimitInterPatient**: SURVIVOR merging threshold between samples.
+
+- **enrichmentSignificanceThreshold**: Statistical significance cutoff for enrichment analysis.
+
+- **callers**: Structural variant callers used for TE detection (e.g., cuteSV, sniffles2).
+
+- **datasets**: Optional grouping variable for multi-dataset analysis.
+
+- **keepRds**: If `True`, intermediate R objects are preserved for downstream reuse.
+
+- **samples**: List of sample identifiers (must match BAM file names).
+
+- **comparisons**: Pairwise sample comparisons used in compare mode (exactly two samples per comparison).
